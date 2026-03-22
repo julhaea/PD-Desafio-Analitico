@@ -251,7 +251,7 @@ SELECT
     ROUND(faturamento, 2) as faturamento,
     ROUND(ticket_medio_faixa, 2) as ticket_medio,
     ROUND(media_itens, 2) as media_itens,
-    ROUND(faturamento * 100.0 / SUM(faturamento) OVER (), 2) as participacao_percent,
+    ROUND(faturamento * 100.0 / SUM(faturamento) OVER (), 2) as participacao_percent
 FROM faixas
 ORDER BY valor_min_faixa;
 """
@@ -562,6 +562,28 @@ print(f"\n{'Segmento':<25} {'Qtd Clientes':<15} {'% Clientes':<12} {'Faturamento
 for segmento, row in segmentos_agregado.iterrows():
     print(f"{segmento:<25} {row['total_clientes']:<15} {row['percentual_clientes']:<12}% "
           f"R$ {row['faturamento_total']:>15,.2f} {row['percentual_faturamento']:<12}%")
+
+
+print("\n5-CÁLCULO DO CHURN RATE")
+
+
+data_referencia = df['data_compra'].max() + timedelta(days=1)
+
+ultima_compra = df.groupby('id_cliente_unico')['data_compra'].max().reset_index()
+ultima_compra.columns = ['id_cliente_unico', 'ultima_compra']
+ultima_compra['dias_desde_ultima'] = (data_referencia - ultima_compra['ultima_compra']).dt.days
+
+churn_limite = 180
+clientes_ativos = ultima_compra[ultima_compra['dias_desde_ultima'] <= churn_limite]
+clientes_churn = ultima_compra[ultima_compra['dias_desde_ultima'] > churn_limite]
+
+total_clientes = len(ultima_compra)
+churn_rate = len(clientes_churn) / total_clientes * 100
+retencao_rate = len(clientes_ativos) / total_clientes * 100
+
+print(f"\nTotal de clientes: {total_clientes}")
+print(f"Clientes ativos (últimos {churn_limite} dias): {len(clientes_ativos)} ({retencao_rate:.1f}%)")
+print(f"Clientes em churn (+{churn_limite} dias sem compra): {len(clientes_churn)} ({churn_rate:.1f}%)")
 
 
 conn.close()
