@@ -332,7 +332,7 @@ print("\n3.1.2-Preço produto")
 Q3_preco = df['preco'].quantile(0.75)
 Q1_preco = df['preco'].quantile(0.25)
 IQR_preco = Q3_preco - Q1_preco
-limite_superior_preco = Q3_preco + 4 * IQR_preco
+limite_superior_preco = Q3_preco + 5 * IQR_preco
 outliers_preco = df[df['preco'] > limite_superior_preco]
 
 
@@ -348,7 +348,7 @@ print("\n3.1.3-Preço total da compra")
 Q3_total = df['preco_total'].quantile(0.75)
 Q1_total = df['preco_total'].quantile(0.25)
 IQR_total = Q3_total - Q1_total
-limite_superior_total = Q3_total + 4 * IQR_total
+limite_superior_total = Q3_total + 5 * IQR_total
 outliers_valor_compra = df[df['preco_total'] > limite_superior_total]
 
 print(f"\n-Outliers de preço total de compra (> de R$ {limite_superior_total:.2f})")
