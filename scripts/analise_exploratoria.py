@@ -8,7 +8,7 @@ from datetime import timedelta
 
 print("\n1-ESTATÍSTICAS DESCRITIVAS")
 
-conn = sqlite3.connect('../ecommerce.db')
+conn = sqlite3.connect('../dados/ecommerce.db')
 cursor = conn.cursor()
 
 # características da tabela
@@ -406,8 +406,8 @@ plt.suptitle('ANÁLISE DE OUTLIERS - BOXPLOT', fontsize=14, fontweight='bold', y
 plt.tight_layout()
 
 #salvar
-plt.savefig('outliers_boxplot.png', dpi=300, bbox_inches='tight')
-print("\nGráfico de Outliers gerado: outliers_boxplot.png")
+plt.savefig('../imagens/outliers_boxplot.png', dpi=300, bbox_inches='tight')
+print("\nGráfico de Outliers gerado: ../imagens/outliers_boxplot.png")
 
 
 print("\n3.2-Análise de Correlação")
@@ -425,8 +425,8 @@ sns.heatmap(correlacao, annot=True, cmap='coolwarm', center=0, fmt='.2f',
             square=True, linewidths=1, cbar_kws={"shrink": 0.8})
 plt.title('Matriz de Correlação', fontsize=14, fontweight='bold')
 plt.tight_layout()
-plt.savefig('matriz_correlacao.png', dpi=300, bbox_inches='tight')
-print("\nMatriz de correlação gerada: matriz_correlacao.png")
+plt.savefig('../imagens/matriz_correlacao.png', dpi=300, bbox_inches='tight')
+print("\nMatriz de correlação gerada: ../imagens/matriz_correlacao.png")
 
 #gráficos de dispersão
 fig, axes = plt.subplots(1, 2, figsize=(12, 6))
@@ -449,8 +449,8 @@ axes[1].xaxis.set_major_locator(MaxNLocator(integer=True))
 
 plt.suptitle('GRÁFICOS DE DISPERSÃO - RELAÇÕES ENTRE VARIÁVEIS', fontsize=14, fontweight='bold')
 plt.tight_layout()
-plt.savefig('graficos_dispersao.png', dpi=300, bbox_inches='tight')
-print("\nGráficos de dispersão gerados: graficos_dispersao.png")
+plt.savefig('../imagens/graficos_dispersao.png', dpi=300, bbox_inches='tight')
+print("\nGráficos de dispersão gerados: ../imagens/graficos_dispersao.png")
 
 print("\n4-ANÁLISE DE CLIENTES RFM")
 
@@ -498,8 +498,8 @@ rfm['Segmento'] = rfm.apply(segmentar, axis=1)
 rfm = rfm.reset_index()
 
 #gerar csv
-rfm.to_csv('analise_rfm.csv', sep=';', index=False, encoding='utf-8-sig')
-print("\nCSV Análise RFM gerado: 'analise_rfm.csv'")
+rfm.to_csv('../dados/analise_rfm.csv', sep=';', index=False, encoding='utf-8-sig')
+print("\nCSV Análise RFM gerado: '../dados/analise_rfm.csv'")
 
 #gerar gráficos de segmentos de cliente
 
@@ -550,8 +550,8 @@ plt.suptitle('ANÁLISE RFM - SEGMENTAÇÃO DE CLIENTES', fontsize=16, fontweight
 
 plt.subplots_adjust(left=0.12, right=0.95, top=0.92, bottom=0.08, wspace=0.35)
 
-plt.savefig('rfm_segmentacao.png', dpi=300, bbox_inches='tight')
-print("\nGráficos participação dos segmentos salvo: rfm_segmentacao.png")
+plt.savefig('../imagens/rfm_segmentacao.png', dpi=300, bbox_inches='tight')
+print("\nGráficos participação dos segmentos salvo: ../imagens/rfm_segmentacao.png")
 
 
 print("\nParticipação dos segmentos no total de clientes e no total de faturamento")

@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 
 print("PREVISÃO DE VENDAS")
 
-conn = sqlite3.connect('../ecommerce.db')
+conn = sqlite3.connect('../dados/ecommerce.db')
 df = pd.read_sql_query("SELECT * FROM vendas", conn)
 
 df['data_compra'] = pd.to_datetime(df['data_compra'], format='%d-%m-%Y')
@@ -91,5 +91,5 @@ ax.text(0.01, 0.80, texto_metricas, transform=ax.transAxes, fontsize=10,
         bbox=dict(boxstyle='round', facecolor='white', alpha=0.9, edgecolor='gray'))
 
 plt.tight_layout()
-plt.savefig('grafico_reglinear.png', dpi=300, bbox_inches='tight')
-print("\nGráfico gerado: grafico_reglinear.png")
+plt.savefig('../imagens/grafico_reglinear.png', dpi=300, bbox_inches='tight')
+print("\nGráfico gerado: ../imagens/grafico_reglinear.png")
